@@ -1,0 +1,11 @@
+{
+    "name": "phpdbg-ext",
+    "version": "0.0.1",
+    "description": "Browser extension for phpdbg",
+    "manifest_version": 2,
+    "app": {
+        "launch": {
+            "local_path": "index.html"
+        }
+    }
+}
