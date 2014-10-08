@@ -16,8 +16,17 @@ prompt.addEventListener('keyup', function(e) {
     var command = prompt.value;
     prompt.value = '';
 
+    addPrompt(command);
+
     socket.send(command, fillContent);
 });
+
+function addPrompt(command) {
+    var el = document.createElement('div');
+    el.className = 'command';
+    el.textContent = '> ' + command;
+    content.appendChild(el);
+}
 
 function fillContent(xmldata) {
     phpdbgParser(xmldata).forEach(function(node) {
