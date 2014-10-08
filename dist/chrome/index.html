@@ -2,10 +2,38 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>foo</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>remote phpdbg</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link rel="stylesheet" href="bootstrap-theme.min.css">
   </head>
   <body>
-    bar
+    <section class="page container-fluid" id="connection">
+      <h1>
+        remote phpdbg
+      </h1>
+
+      <p class="bg-danger" hidden id="error"></p>
+
+      <form class="connection form">
+        <div class="form-group">
+          <label for="hostname">Hostname</label>
+          <input type="text" id="hostname" class="form-control" required>
+        </div>
+
+        <div class="form-group">
+          <label for="port">Port</label>
+          <input type="text" id="port" class="form-control" required>
+        </div>
+
+        <input type="submit" class="btn btn-primary form-control" id="submit-connection">
+      </form>
+    </section>
+
+    <section class="page container-fluid" id="debugger">
+      debugger
+    </section>
+
     <script src="phpdbg-ext.js"></script>
   </body>
 </html>

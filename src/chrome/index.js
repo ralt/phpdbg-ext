@@ -1,4 +1,20 @@
-console.log('foo');
+'use strict';
+
+var viewsManager = require('./views/manager');
+var connectionView = require('./views/connection');
+var debuggerView = require('./views/debugger');
+
+viewsManager.add(connectionView);
+viewsManager.add(debuggerView);
+viewsManager.setDefault(connectionView);
+viewsManager.run();
+
+/*
+
+ This is working code from previous manual tests.
+ Keeping them for the sake of having a correct example.
+
+
 
 var socketId;
 
@@ -38,3 +54,4 @@ function str2ab(str) {
     }
     return buf;
 }
+*/
