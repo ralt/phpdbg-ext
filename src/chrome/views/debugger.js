@@ -1,12 +1,14 @@
 'use strict';
 
 var socket = require('../socket');
+var phpdbgParser = require('../../phpdbg/parser');
 
 var name = 'debugger';
 var element = document.querySelector('#debugger');
 
 var connected = document.querySelector('#connected');
 var prompt = document.querySelector('#prompt');
+var content = document.querySelector('#content');
 
 prompt.addEventListener('keyup', function(e) {
     if (e.keyCode !== 13) return;
@@ -18,7 +20,9 @@ prompt.addEventListener('keyup', function(e) {
 });
 
 function fillContent(xmldata) {
-    console.log(xmldata);
+    phpdbgParser(xmldata).forEach(function(node) {
+        content.appendChild(node);
+    });
 }
 
 module.exports = {
