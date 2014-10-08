@@ -1,5 +1,6 @@
 'use strict';
 
+var socket = require('../socket');
 var manager = require('./manager');
 
 var name = 'connection';
@@ -11,15 +12,11 @@ var port = document.querySelector('#port');
 var error = document.querySelector('#error');
 
 submit.addEventListener('click', function(e) {
-    chrome.sockets.tcp.create({}, socketCreated);
+    e.preventDefault();
+    socket.connect(hostname.value, +port.value, connected);
 });
 
-function socketCreated(socketInfo) {
-    chrome.sockets.tcp.connect(socketInfo.socketId, hostname.value,
-                               +port.value || 0, socketConnected);
-}
-
-function socketConnected(result) {
+function connected(result) {
     if (result !== 0) {
         return showError("Can't connect to phpdbg. Error code: " + result);
     }
@@ -32,7 +29,7 @@ function showError(msg) {
     error.hidden = false;
     setTimeout(function() {
         error.hidden = true;
-    }, 3000);
+    }, 5000);
 }
 
 module.exports = {
