@@ -18,7 +18,7 @@
       <form class="connection form">
         <div class="form-group">
           <label for="hostname">Hostname</label>
-          <input type="text" id="hostname" class="form-control" required>
+          <input type="text" id="hostname" class="form-control" required autofocus>
         </div>
 
         <div class="form-group">
@@ -34,6 +34,11 @@
       <p class="bg-success">
         Connected to <span id="connected"></span>
       </p>
+
+      <div class="content">
+      </div>
+
+      <input type="text" id="prompt" class="form-control"
     </section>
 
     <script src="phpdbg-ext.js"></script>
