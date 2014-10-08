@@ -28,4 +28,8 @@ ViewsManager.prototype.setView = function(name) {
     this.views[name].getElement().hidden = false;
 };
 
+ViewsManager.prototype.getView = function(name) {
+    return this.views[name];
+};
+
 module.exports = new ViewsManager;

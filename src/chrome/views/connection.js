@@ -22,6 +22,7 @@ function connected(result) {
     }
 
     manager.setView('debugger');
+    manager.getView('debugger').start(hostname.value, port.value);
 }
 
 function showError(msg) {
