@@ -13,3 +13,16 @@
     padding: 10px;
     width: 100%;
 }
+
+#connection-container {
+    height: 50px;
+}
+
+#connection-container p {
+    float: left;
+}
+
+#disconnect {
+    cursor: pointer;
+    float: right;
+}

@@ -2,6 +2,7 @@
 
 var socket = require('../socket');
 var phpdbgParser = require('../../phpdbg/parser');
+var manager = require('./manager');
 
 var name = 'debugger';
 var element = document.querySelector('#debugger');
@@ -9,6 +10,7 @@ var element = document.querySelector('#debugger');
 var connected = document.querySelector('#connected');
 var prompt = document.querySelector('#prompt');
 var content = document.querySelector('#content');
+var disconnect = document.querySelector('#disconnect');
 
 prompt.addEventListener('keyup', function(e) {
     if (e.keyCode !== 13) return;
@@ -32,7 +34,13 @@ function fillContent(xmldata) {
     phpdbgParser(xmldata).forEach(function(node) {
         content.appendChild(node);
     });
+    content.scrollByPages(100); // should be safe enough
 }
+
+disconnect.addEventListener('click', function() {
+    socket.disconnect();
+    manager.setView('connection');
+});
 
 module.exports = {
     getName: function() {
@@ -45,5 +53,6 @@ module.exports = {
 
     start: function(hostname, port) {
         connected.textContent = hostname + ':' + port;
+        prompt.focus();
     }
 };

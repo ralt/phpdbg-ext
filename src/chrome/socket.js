@@ -8,8 +8,8 @@ tcp.onReceive.addListener(function(info) {
     if (info.socketId !== socketId) return;
 
     var parser = new DOMParser();
-    var xmlString = '<?xml version="1.0"?>\n' + ab2str(info.data);
-    sendCb(parser.parseFromString(xmlString, 'application/xml'));
+    var xmlString = '<?xml version="1.0"?>\n<root>' + ab2str(info.data) + '</root>';
+    sendCb(parser.parseFromString(xmlString, 'application/xml').children[0]);
 });
 
 exports.connect = function(hostname, port, cb) {
@@ -22,6 +22,10 @@ exports.connect = function(hostname, port, cb) {
 exports.send = function(command, cb) {
     sendCb = cb;
     tcp.send(socketId, str2ab(command + '\n'), function() {});
+};
+
+exports.disconnect = function() {
+    tcp.close(socketId, function() {});
 };
 
 // Thanks html5rocks

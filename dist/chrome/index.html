@@ -14,7 +14,7 @@
         remote phpdbg
       </h1>
 
-      <p class="bg-danger" hidden id="error"></p>
+      <p class="alert alert-danger" hidden id="error"></p>
 
       <form class="connection form">
         <div class="form-group">
@@ -32,9 +32,12 @@
     </section>
 
     <section class="page container-fluid" id="debugger">
-      <p class="bg-success">
-        Connected to <span id="connected"></span>
-      </p>
+      <div class="alert alert-info" id="connection-container">
+        <p>
+          Connected to <span id="connected"></span>
+        </p>
+        <span id="disconnect" class="label label-danger">Disconnect</span>
+      </div>
 
       <div id="content">
       </div>
