@@ -7,10 +7,7 @@ var socketId, sendCb;
 tcp.onReceive.addListener(function(info) {
     if (info.socketId !== socketId) return;
 
-    var parser = new DOMParser();
-    var xmlString = '<?xml version="1.0"?>\n<root>' + ab2str(info.data) + '</root>';
-    sendCb(parser.parseFromString(xmlString, 'application/xml').children[0]);
-});
+    sendCb(ab2str(info.data));
 
 exports.connect = function(hostname, port, cb) {
     tcp.create({}, function(socketInfo) {
