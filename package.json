@@ -1,5 +1,8 @@
 {
-    "name": "phpdbg-ext",
-    "description": "Debug your PHP with phpdbg from the browser",
-    "version": "0.0.1"
+  "name": "phpdbg-ext",
+  "description": "Debug your PHP with phpdbg from the browser",
+  "version": "0.0.1",
+  "devDependencies": {
+    "mocha": "~1.21.4"
+  }
 }

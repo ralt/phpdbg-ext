@@ -41,6 +41,9 @@ module.exports = function(xmlstring) {
 
 // Gets the string of an element.
 function getElement(xmlstring) {
+    // Sanity check
+    if (xmlstring.trim() === '') return false;
+
     var state;
     var el = {
         length: 0,
@@ -48,8 +51,11 @@ function getElement(xmlstring) {
         attributes: [],
         nodeValue: ''
     };
-    var tmpAttr;
+    var tmpAttrName = '';
+
+    main:
     for (var i = 0; i < xmlstring.length; i++) {
+        // State management
         switch (xmlstring[i]) {
             case '<':
                 if (!state) {
@@ -79,10 +85,30 @@ function getElement(xmlstring) {
                 if (state === S_IN_ATTRIBUTE_AFTER_VALUE) {
                     state = S_SPACE;
                 }
+
+                if (state === S_IN_CLOSE_OPENING_TAG) {
+                    state = S_IN_NODEVALUE;
+                }
+
+                if (state === S_IN_ATTRIBUTE_NAME) {
+                    continue main;
+                }
+
+                if (state === S_IN_ATTRIBUTE_EQUAL) {
+                    continue main;
+                }
+
+                if (state === S_IN_ATTRIBUTE_BEFORE_VALUE) {
+                    state = S_IN_ATTRIBUTE_VALUE;
+                }
                 break;
             case '=':
                 if (state === S_IN_ATTRIBUTE_NAME) {
                     state = S_IN_ATTRIBUTE_EQUAL;
+                }
+
+                if (state === S_IN_CLOSE_OPENING_TAG) {
+                    state = S_IN_NODEVALUE;
                 }
                 break;
             case '"':
@@ -103,32 +129,30 @@ function getElement(xmlstring) {
                     state = S_IN_ATTRIBUTE_NAME;
                 }
 
+                if (state === S_IN_ATTRIBUTE_BEFORE_VALUE) {
+                    state = S_IN_ATTRIBUTE_VALUE;
+                }
+
                 if (state === S_IN_CLOSE_OPENING_TAG) {
                     state = S_IN_NODEVALUE;
                 }
                 break;
         }
 
+        // State handling
         if (state === S_IN_NODENAME) {
             el.nodeName += xmlstring[i];
         }
 
+        if (state === S_IN_ATTRIBUTE_EQUAL) {
+            el.attributes.push({ name: tmpAttrName, value: '' });
+        }
         if (state === S_IN_ATTRIBUTE_NAME) {
-            tmpAttr = el.attributes[el.attributes.length - 1];
-            if (!tmpAttr) {
-                tmpAttr = {
-                    name: '',
-                    value: ''
-                };
-            }
-            tmpAttr.name += xmlstring[i];
-            el.attributes[el.attributes.length - 1] = tmpAttr;
+            tmpAttrName += xmlstring[i];
         }
 
         if (state === S_IN_ATTRIBUTE_VALUE) {
-            tmpAttr = el.attributes[el.attributes.length - 1];
-            tmpAttr.value += xmlstring[i];
-            el.attributes[el.attributes.length - 1] = tmpAttr;
+            el.attributes[el.attributes.length - 1].value += xmlstring[i];
         }
 
         if (state === S_IN_NODEVALUE) {

@@ -22,3 +22,11 @@ chromedebug:
 # No need to minify it in this case, so just mv it
 	mv ${CHROME_TMP_PATH} ${CHROME_PATH}
 	rm -rf tmp/
+
+test:
+	rm -rf tmp/
+	mkdir -p tmp/
+	cp -R src/* tmp/
+	find tmp/ -type f -name '*.js' -exec cpp -P -nostdinc -D CHROME {} {}.bak \; -exec mv {}.bak {} \;
+	node_modules/.bin/mocha tests/
+	rm -rf tmp/

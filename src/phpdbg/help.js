@@ -1,6 +1,9 @@
 'use strict';
 
 module.exports = function(node) {
+    // temporary yay!
+    return node;
+
     var el = document.createElement('div');
     el.className = 'help';
 
