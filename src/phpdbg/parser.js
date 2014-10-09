@@ -1,7 +1,9 @@
 'use strict';
 
 var nodeNames = {
-    'help': require('./help')
+    'help': require('./help'),
+    'intros': function() {},
+    'intro': require('./intro')
 };
 
 /**
@@ -19,6 +21,10 @@ module.exports = function(xmlstring) {
     }
 
     return els.map(function(el) {
+// Testing is quite important for this function, so I'm making an exception.
+#ifdef TESTING
+        return el;
+#endif
         return nodeNames[el.nodeName](el);
     });
 };
@@ -154,6 +160,7 @@ function getElement(xmlstring) {
 
         if (state === S_IN_ATTRIBUTE_EQUAL) {
             el.attributes.push({ name: tmpAttrName, value: '' });
+            tmpAttrName = '';
         }
         if (state === S_IN_ATTRIBUTE_NAME) {
             tmpAttrName += xmlstring[i];

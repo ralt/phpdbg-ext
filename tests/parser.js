@@ -75,4 +75,15 @@ describe('parser', function() {
         assert.equal(true, actual[1].attributes[0].value === 'v');
         assert.equal(true, actual[0].attributes[0].value === 'a');
     });
+
+    it('should parse multiple attributes', function() {
+        var test = '<help a="b" c="d"/>';
+        var actual = parser(test);
+        var attrs = actual[0].attributes;
+        assert.equal(true, attrs.length === 2);
+        assert.equal(true, attrs[0].name === 'a');
+        assert.equal(true, attrs[0].value === 'b');
+        assert.equal(true, attrs[1].name === 'c');
+        assert.equal(true, attrs[1].value === 'd');
+    });
 });

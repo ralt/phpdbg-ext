@@ -27,6 +27,6 @@ test:
 	rm -rf tmp/
 	mkdir -p tmp/
 	cp -R src/* tmp/
-	find tmp/ -type f -name '*.js' -exec cpp -P -nostdinc -D CHROME {} {}.bak \; -exec mv {}.bak {} \;
+	find tmp/ -type f -name '*.js' -exec cpp -P -nostdinc -D CHROME -D TESTING {} {}.bak \; -exec mv {}.bak {} \;
 	node_modules/.bin/mocha tests/
 	rm -rf tmp/

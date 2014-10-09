@@ -12,7 +12,7 @@ var prompt = document.querySelector('#prompt');
 var content = document.querySelector('#content');
 var disconnect = document.querySelector('#disconnect');
 
-prompt.addEventListener('keyup', function(e) {
+prompt.addEventListener('keydown', function(e) {
     if (e.keyCode !== 13) return;
 
     var command = prompt.value;
@@ -38,6 +38,7 @@ function fillContent(xmldata) {
 }
 
 disconnect.addEventListener('click', function() {
+    content.innerHTML = '';
     socket.disconnect();
     manager.setView('connection');
 });

@@ -9,7 +9,7 @@ module.exports = function(node) {
     lineEl.className = 'line';
     lines.forEach(function(line) {
         var lineClone = lineEl.cloneNode();
-        lineClone.textContent = line;
+        lineClone.innerHTML = line;
         el.appendChild(lineClone);
     });
     return el;
