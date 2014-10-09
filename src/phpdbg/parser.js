@@ -49,7 +49,14 @@ function getElement(xmlstring) {
         length: 0,
         nodeName: '',
         attributes: [],
-        nodeValue: ''
+        nodeValue: '',
+        getAttribute: function(name) {
+            for (var i = 0; i < this.attributes.length; i++) {
+                if (this.attributes[i].name === name) {
+                    return this.attributes[i].value;
+                }
+            }
+        }
     };
     var tmpAttrName = '';
 
