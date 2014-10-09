@@ -63,7 +63,7 @@ describe('parser', function() {
         assert.equal(true, actual[0].nodeName === 'help');
         assert.equal(true, actual[1].nodeName === 'help');
         assert.equal(true, actual[0].attributes[0].value === 'v');
-        assert.equal(true, actual[1].attributes[1].value === 'a');
+        assert.equal(true, actual[1].attributes[0].value === 'a');
     });
 
     it('should parse a mix of self-closing and normal nodes', function() {
@@ -73,6 +73,6 @@ describe('parser', function() {
         assert.equal(true, actual[0].nodeName === 'help');
         assert.equal(true, actual[1].nodeName === 'help');
         assert.equal(true, actual[1].attributes[0].value === 'v');
-        assert.equal(true, actual[0].attributes[1].value === 'a');
+        assert.equal(true, actual[0].attributes[0].value === 'a');
     });
 });

@@ -67,6 +67,7 @@ function getElement(xmlstring) {
                 }
                 break;
             case '/':
+                state = S_IN_CLOSING_TAG;
                 break;
             case '>':
                 if (state === S_SPACE || state === S_IN_ATTRIBUTE_AFTER_VALUE || state === S_IN_NODENAME) {
