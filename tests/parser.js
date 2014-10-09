@@ -33,4 +33,26 @@ describe('parser', function() {
         assert.equal(true, actual.length === 2);
         assert.equal(true, actual[1].nodeName === 'help');
     });
+
+    it('should parse a self-closing element', function() {
+        var test = '<help attr="vv" />';
+        var actual = parser(test);
+        assert.equal(true, actual.length === 1);
+        assert.equal(true, actual[0].nodeName === 'help');
+        assert.equal(true, actual[0].nodeValue === '');
+        assert.equal(true, actual[0].attributes.length === 1);
+        assert.equal(true, actual[0].attributes[0].name === 'attr');
+        assert.equal(true, actual[0].attributes[0].value === 'vv');
+    });
+
+    it('should parse a self-closing element with random spaces', function() {
+        var test = '<help   attr =   "v v "/>';
+        var actual = parser(test);
+        assert.equal(true, actual.length === 1);
+        assert.equal(true, actual[0].nodeName === 'help');
+        assert.equal(true, actual[0].nodeValue === '');
+        assert.equal(true, actual[0].attributes.length === 1);
+        assert.equal(true, actual[0].attributes[0].name === 'attr');
+        assert.equal(true, actual[0].attributes[0].value === 'v v ');
+    });
 });
