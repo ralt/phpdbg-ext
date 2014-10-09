@@ -26,4 +26,11 @@ describe('parser', function() {
         assert.equal(true, actual[0].attributes[0].name === 'attr');
         assert.equal(true, actual[0].attributes[0].value === ' vvv');
     });
+
+    it('should parse several nodes', function() {
+        var test = '<help attr="v">ds</help> <help>sd</help>';
+        var actual = parser(test);
+        assert.equal(true, actual.length === 2);
+        assert.equal(true, actual[1].nodeName === 'help');
+    });
 });
