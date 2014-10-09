@@ -8,6 +8,7 @@ tcp.onReceive.addListener(function(info) {
     if (info.socketId !== socketId) return;
 
     sendCb(ab2str(info.data));
+});
 
 exports.connect = function(hostname, port, cb) {
     tcp.create({}, function(socketInfo) {

@@ -37,6 +37,7 @@ module.exports = function(xmlstring) {
 #define S_IN_NODEVALUE 9
 #define S_IN_CLOSING_TAG 10
 #define S_RETURN 11
+#define S_SPACE 12
 
 // Gets the string of an element.
 function getElement(xmlstring) {
