@@ -1,9 +1,15 @@
 'use strict';
 
 var nodeNames = {
-    'help': require('./help'),
+    'help': require('./commands/help'),
     'intros': function() {},
-    'intro': require('./intro')
+    'intro': require('./commands/intro'),
+    'command': require('./commands/command'),
+    'phpdbg': require('./commands/phpdbg'),
+    'clearinfo': function() {},
+    'clear': require('./commands/clear'),
+    'functioninfo': require('./commands/functioninfo'),
+    'includedfilecount': require('./commands/includedfilecount')
 };
 
 /**
@@ -25,7 +31,12 @@ module.exports = function(xmlstring) {
 #ifdef TESTING
         return el;
 #endif
-        return nodeNames[el.nodeName](el);
+        var ret = nodeNames[el.nodeName](el);
+        var severity = el.getAttribute('severity');
+        if (severity) {
+            ret.classList.add(severity);
+        }
+        return ret;
     });
 };
 
