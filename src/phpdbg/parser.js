@@ -3,13 +3,13 @@
 var nodeNames = {
     'help': require('./commands/help'),
     'intros': function() {},
-    'intro': require('./commands/intro'),
-    'command': require('./commands/command'),
+    'intro': require('./generic')('intro', 'msgout'),
+    'command': require('./generic')('command', 'msgout'),
     'phpdbg': require('./commands/phpdbg'),
     'clearinfo': function() {},
-    'clear': require('./commands/clear'),
-    'functioninfo': require('./commands/functioninfo'),
-    'includedfilecount': require('./commands/includedfilecount')
+    'clear': require('./generic')('clear', 'msgout'),
+    'functioninfo': require('./generic')('functioninfo', 'msgout'),
+    'includedfilecount': require('./generic')('includedfilecount', 'msgout')
 };
 
 /**
@@ -26,11 +26,13 @@ module.exports = function(xmlstring) {
         xmlstring = xmlstring.slice(el.length);
     }
 
-    return els.map(function(el) {
 // Testing is quite important for this function, so I'm making an exception.
+// Since I don't want to mess with the interface, I use this dirty hack.
 #ifdef TESTING
-        return el;
+        return els;
 #endif
+
+    return els.map(function(el) {
         var ret = nodeNames[el.nodeName](el);
         var severity = el.getAttribute('severity');
         if (severity) {

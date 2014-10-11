@@ -1,6 +1,7 @@
-'use strict';
-
 var assert = require('assert');
+
+// "mock"
+document = { createElement: function() {} };
 
 var parser = require('../tmp/phpdbg/parser');
 
