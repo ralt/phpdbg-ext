@@ -6,7 +6,7 @@ var element = require('../element');
 module.exports = function(node) {
     var el = element('help');
 
-    var lines = node.getAttribute('msg').split('\n');
+    var lines = node.getAttribute('msg').split('&#10;');
     var lineEl = element('line');
 
     lines.forEach(function(line) {

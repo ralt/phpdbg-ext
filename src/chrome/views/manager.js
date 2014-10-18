@@ -1,35 +1,31 @@
 'use strict';
 
-function ViewsManager() {
-    this.views = {};
+var views = [];
+var def;
+
+exports.add = function(view) {
+    views[view.getName()] = view;
+};
+
+exports.setDefault = function(view) {
+    def = view.getName();
+};
+
+exports.run = function() {
+    showView(def);
+};
+
+exports.setView = function(name) {
+    showView(name);
+};
+
+exports.getView = function(name) {
+    return views[name];
+};
+
+function showView(name) {
+    Object.keys(views).forEach(function(view) {
+        views[view].getElement().hidden = true;
+    });
+    views[name].getElement().hidden = false;
 }
-
-ViewsManager.prototype.add = function(view) {
-    this.views[view.getName()] = view;
-};
-
-ViewsManager.prototype.setDefault = function(view) {
-    this.default = view.getName();
-};
-
-ViewsManager.prototype.run = function() {
-    var that = this;
-    Object.keys(this.views).forEach(function(view) {
-        that.views[view].getElement().hidden = true;
-    });
-    this.views[this.default].getElement().hidden = false;
-};
-
-ViewsManager.prototype.setView = function(name) {
-    var that = this;
-    Object.keys(this.views).forEach(function(view) {
-        that.views[view].getElement().hidden = true;
-    });
-    this.views[name].getElement().hidden = false;
-};
-
-ViewsManager.prototype.getView = function(name) {
-    return this.views[name];
-};
-
-module.exports = new ViewsManager;
