@@ -87,4 +87,16 @@ describe('parser', function() {
         assert.equal(true, attrs[1].name === 'c');
         assert.equal(true, attrs[1].value === 'd');
     });
+
+    it('should parse nested elements', function() {
+        var test = '<clearinfo ><clear foo="bar" /><clear baz="bar"/></clearinfo>';
+        var actual = parser(test);
+        assert.equal(true, actual.nodeName === 'clearinfo');
+        assert.equal(true, actual.children.length === 2);
+        assert.equal(true, actual.children[0].nodeName === 'clear');
+        assert.equal(true, actual.children[0].attributes[0].name === 'foo');
+        assert.equal(true, actual.children[0].attributes[0].value === 'bar');
+        assert.equal(true, actual.children[0].attributes[1].name === 'baz');
+        assert.equal(true, actual.children[0].attributes[1].value === 'bar');
+    });
 });

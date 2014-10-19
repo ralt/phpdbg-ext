@@ -3,13 +3,15 @@
 var nodeNames = {
     'help': require('./commands/help'),
     'intros': function() {},
-    'intro': require('./generic')('intro', 'msgout'),
-    'command': require('./generic')('command', 'msgout'),
+    'intro': require('./generic')('intro'),
+    'command': require('./generic')('command'),
     'phpdbg': require('./commands/phpdbg'),
     'clearinfo': function() {},
-    'clear': require('./generic')('clear', 'msgout'),
-    'functioninfo': require('./generic')('functioninfo', 'msgout'),
-    'includedfilecount': require('./generic')('includedfilecount', 'msgout')
+    'clear': require('./generic')('clear'),
+    'functioninfo': require('./generic')('functioninfo'),
+    'includedfilecount': require('./generic')('includedfilecount'),
+    'breakpoint': require('./generic')('breakpoint'),
+    'inactive': require('./generic')('inactive')
 };
 
 /**
