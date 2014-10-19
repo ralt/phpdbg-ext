@@ -71,15 +71,18 @@ function getElement(xmlstring) {
         nodeName: '',
         attributes: [],
         nodeValue: '',
+        children: [],
         getAttribute: function(name) {
             for (var i = 0; i < this.attributes.length; i++) {
                 if (this.attributes[i].name === name) {
                     return this.attributes[i].value;
                 }
             }
+            return false;
         }
     };
     var tmpAttrName = '';
+    var tmpChild;
 
     main:
     for (var i = 0; i < xmlstring.length; i++) {
@@ -91,7 +94,16 @@ function getElement(xmlstring) {
                 }
 
                 if (state === S_IN_NODEVALUE) {
-                    state = S_IN_CLOSING_TAG;
+                    if (nextNonSpaceChar(xmlstring.slice(i), '/')) {
+                        state = S_IN_CLOSING_TAG;
+                    }
+                    else {
+                        while ((tmpChild = getElement(xmlstring.slice(i)))) {
+                            el.children.push(tmpChild);
+                            i += el.children[el.children.length - 1].length;
+                        }
+                        break main;
+                    }
                 }
                 break;
             case '/':
@@ -197,4 +209,12 @@ function getElement(xmlstring) {
     el.length = i + 1;
 
     return el;
+}
+
+function nextNonSpaceChar(string, char) {
+    for (var i = 0; i < string.length; i++) {
+        if (string[i] === ' ') continue;
+        return string[i] === char;
+    }
+    return false;
 }
